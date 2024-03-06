@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Prime</title>
+</head>
+<body>
+
+<h2>Check Prime Number</h2>
+
+<form id="primeForm">
+    <label for="numberInput">Masukan 9 digit angka:</label>
+    <input type="text" id="numberInput" pattern="\d{9}" title="Please enter a 9-digit number" onkeypress="return processOnEnter(event)" required>
+    <button type="button" onclick="processNumber()">Check Prime</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+function processNumber() {
+    var inputElement = document.getElementById('numberInput');
+    var resultElement = document.getElementById('result');
+
+    var input = inputElement.value;
+
+    if (input.length === 9 && /^\d+$/.test(input)) {
+        
+        var digit1 = input[0];
+        var digit4 = input[3];
+        var digit9 = input[8];
+        var digit6 = input[5];
+
+        
+        var processedNumber = parseInt(digit1 + digit4 + digit9 + digit6);
+
+        
+        var isPrime = true;
+
+        if (processedNumber < 2) {
+            isPrime = false;
+        } else {
+            for (var i = 2; i <= Math.sqrt(processedNumber); i++) {
+                if (processedNumber % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+        }
+
+        
+        resultElement.innerHTML = "Bilangan yang diproses = " + processedNumber + "<br>";
+        resultElement.innerHTML += isPrime ? "Bilangan tersebut adalah bilangan prima." : "Bilangan tersebut bukan bilangan prima.";
+    } else {
+        resultElement.innerHTML = "Input harus berupa 9 digit angka.";
+    }
+}
+
+function processOnEnter(event) {
+    if (event.key === 'Enter') {
+        processNumber();
+        return false; 
+    }
+    return true;
+}
+</script>
+
+</body>
+</html>
